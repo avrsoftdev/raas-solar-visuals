@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Zap, Sun, Settings, Shield, Battery, Cpu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -185,9 +186,11 @@ const Products = () => {
                     </ul>
                   </div>
 
-                  <button className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
-                    Get Quote
-                  </button>
+                  <Link to="/quote" className="block">
+                    <button className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
+                      Get Quote
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}

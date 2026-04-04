@@ -1,22 +1,41 @@
 
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Mail, Phone, MapPin, Clock, Send, Calculator, Home, Building, Factory } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useToast } from '../hooks/use-toast';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const isQuoteRequest = searchParams.get('type') === 'quote';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    // Quote-specific fields
+    projectType: '',
+    systemSize: '',
+    budget: '',
+    timeline: '',
+    location: ''
   });
+
+  useEffect(() => {
+    if (isQuoteRequest) {
+      setFormData(prev => ({
+        ...prev,
+        subject: 'Quote Request - Solar System Installation'
+      }));
+    }
+  }, [isQuoteRequest]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       toast({
@@ -27,9 +46,19 @@ const Contact = () => {
       return;
     }
 
+    // Quote-specific validation
+    if (isQuoteRequest && (!formData.projectType || !formData.systemSize || !formData.budget)) {
+      toast({
+        title: "Please fill quote details",
+        description: "Project type, system size, and budget are required for quote requests.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     // Simulate form submission
     toast({
-      title: "Message sent successfully!",
+      title: isQuoteRequest ? "Quote request sent successfully!" : "Message sent successfully!",
       description: "We'll get back to you within 24 hours.",
     });
 
@@ -37,12 +66,17 @@ const Contact = () => {
     setFormData({
       name: '',
       email: '',
-      subject: '',
-      message: ''
+      subject: isQuoteRequest ? 'Quote Request - Solar System Installation' : '',
+      message: '',
+      projectType: '',
+      systemSize: '',
+      budget: '',
+      timeline: '',
+      location: ''
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -59,10 +93,13 @@ const Contact = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Contact <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Us</span>
+              {isQuoteRequest ? 'Get Your' : 'Contact'} <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">{isQuoteRequest ? 'Free Quote' : 'Us'}</span>
             </h1>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Get in touch with our experts for electrical panels, solar products, and automation solutions
+              {isQuoteRequest 
+                ? 'Tell us about your solar project and get a customized quote from our experts'
+                : 'Get in touch with our experts for electrical panels, solar products, and automation solutions'
+              }
             </p>
           </div>
         </div>
@@ -76,10 +113,13 @@ const Contact = () => {
             <div className="space-y-8">
               <div>
                 <h2 className="text-3xl font-bold text-white mb-6">
-                  Send us a <span className="text-yellow-400">Message</span>
+                  {isQuoteRequest ? 'Request Your' : 'Send us a'} <span className="text-yellow-400">{isQuoteRequest ? 'Quote' : 'Message'}</span>
                 </h2>
                 <p className="text-blue-200 text-lg">
-                  Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                  {isQuoteRequest 
+                    ? 'Fill out the details below and our solar experts will provide you with a customized quote within 24 hours.'
+                    : 'Have a project in mind? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.'
+                  }
                 </p>
               </div>
 
@@ -133,6 +173,115 @@ const Contact = () => {
                   />
                 </div>
 
+                {/* Quote-specific fields */}
+                {isQuoteRequest && (
+                  <div className="space-y-6 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                      <Calculator className="w-6 h-6 mr-2 text-yellow-400" />
+                      Project Details
+                    </h3>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="projectType" className="block text-white font-semibold mb-2">
+                          Project Type *
+                        </label>
+                        <select
+                          id="projectType"
+                          name="projectType"
+                          value={formData.projectType}
+                          onChange={handleChange}
+                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                          required={isQuoteRequest}
+                        >
+                          <option value="" className="bg-slate-800">Select project type</option>
+                          <option value="residential" className="bg-slate-800">Residential</option>
+                          <option value="commercial" className="bg-slate-800">Commercial</option>
+                          <option value="industrial" className="bg-slate-800">Industrial</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="systemSize" className="block text-white font-semibold mb-2">
+                          System Size *
+                        </label>
+                        <select
+                          id="systemSize"
+                          name="systemSize"
+                          value={formData.systemSize}
+                          onChange={handleChange}
+                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                          required={isQuoteRequest}
+                        >
+                          <option value="" className="bg-slate-800">Select system size</option>
+                          <option value="1-3kw" className="bg-slate-800">1-3 kW</option>
+                          <option value="3-5kw" className="bg-slate-800">3-5 kW</option>
+                          <option value="5-10kw" className="bg-slate-800">5-10 kW</option>
+                          <option value="10-25kw" className="bg-slate-800">10-25 kW</option>
+                          <option value="25kw+" className="bg-slate-800">25 kW+</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="budget" className="block text-white font-semibold mb-2">
+                          Budget Range *
+                        </label>
+                        <select
+                          id="budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
+                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                          required={isQuoteRequest}
+                        >
+                          <option value="" className="bg-slate-800">Select budget range</option>
+                          <option value="under-1lac" className="bg-slate-800">Under ₹1 Lac</option>
+                          <option value="1-3lac" className="bg-slate-800">₹1-3 Lac</option>
+                          <option value="3-5lac" className="bg-slate-800">₹3-5 Lac</option>
+                          <option value="5-10lac" className="bg-slate-800">₹5-10 Lac</option>
+                          <option value="above-10lac" className="bg-slate-800">Above ₹10 Lac</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="timeline" className="block text-white font-semibold mb-2">
+                          Preferred Timeline
+                        </label>
+                        <select
+                          id="timeline"
+                          name="timeline"
+                          value={formData.timeline}
+                          onChange={handleChange}
+                          className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                        >
+                          <option value="" className="bg-slate-800">Select timeline</option>
+                          <option value="asap" className="bg-slate-800">ASAP</option>
+                          <option value="1-3months" className="bg-slate-800">1-3 Months</option>
+                          <option value="3-6months" className="bg-slate-800">3-6 Months</option>
+                          <option value="6months+" className="bg-slate-800">6+ Months</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="location" className="block text-white font-semibold mb-2">
+                        Project Location
+                      </label>
+                      <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-blue-300 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                        placeholder="City, State (e.g., Delhi, NCR)"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label htmlFor="message" className="block text-white font-semibold mb-2">
                     Message *
@@ -154,7 +303,7 @@ const Contact = () => {
                   className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:from-yellow-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <Send className="w-5 h-5" />
-                  <span>Send Message</span>
+                  <span>{isQuoteRequest ? 'Request Quote' : 'Send Message'}</span>
                 </button>
               </form>
             </div>

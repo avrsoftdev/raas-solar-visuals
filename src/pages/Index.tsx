@@ -101,7 +101,7 @@ const Index = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/contact"
+                to="/quote"
                 className="border-2 border-blue-400 text-blue-400 px-8 py-4 rounded-full font-semibold flex items-center justify-center space-x-2 hover:bg-blue-400 hover:text-white transition-all duration-300"
               >
                 <span>Get Quote</span>
