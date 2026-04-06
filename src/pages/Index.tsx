@@ -11,7 +11,7 @@ const Index = () => {
   const particlesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Create floating particles effect
+    // Create floating particles effect kjkk
     const createParticle = () => {
       if (!particlesRef.current) return;
       
