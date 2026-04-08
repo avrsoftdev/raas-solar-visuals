@@ -150,69 +150,71 @@ const Products = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 bg-gradient-to-b from-slate-900 to-slate-800">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {activeProducts.map((product, index) => (
-              <div
-                key={index}
-                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 hover:transform hover:scale-105"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute top-4 right-4">
-                    <div className="bg-gradient-to-r from-yellow-500 to-orange-600 p-2 rounded-lg">
-                      {activeCategory === 'electrical' ? (
-                        <Zap className="w-5 h-5 text-white" />
-                      ) : activeCategory === 'solar' ? (
-                        <Sun className="w-5 h-5 text-white" />
-                      ) : (
-                        <Settings className="w-5 h-5 text-white" />
-                      )}
+      {activeProducts.length > 0 && (
+        <section className="py-16 bg-gradient-to-b from-slate-900 to-slate-800">
+          <div className="container mx-auto px-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {activeProducts.map((product, index) => (
+                <div
+                  key={index}
+                  className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 hover:transform hover:scale-105"
+                >
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute top-4 right-4">
+                      <div className="bg-gradient-to-r from-yellow-500 to-orange-600 p-2 rounded-lg">
+                        {activeCategory === 'electrical' ? (
+                          <Zap className="w-5 h-5 text-white" />
+                        ) : activeCategory === 'solar' ? (
+                          <Sun className="w-5 h-5 text-white" />
+                        ) : (
+                          <Settings className="w-5 h-5 text-white" />
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors duration-300">
-                    {product.name}
-                  </h3>
-                  <p className="text-blue-200 leading-relaxed">
-                    {product.description}
-                  </p>
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors duration-300">
+                      {product.name}
+                    </h3>
+                    <p className="text-blue-200 leading-relaxed">
+                      {product.description}
+                    </p>
 
-                  <div className="space-y-2">
-                    <h4 className="text-yellow-400 font-semibold">Key Features:</h4>
-                    <ul className="space-y-1">
-                      {product.features.map((feature, idx) => (
-                        <li key={idx} className="text-blue-200 text-sm flex items-center">
-                          <Shield className="w-3 h-3 text-yellow-400 mr-2 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="space-y-2">
+                      <h4 className="text-yellow-400 font-semibold">Key Features:</h4>
+                      <ul className="space-y-1">
+                        {product.features.map((feature, idx) => (
+                          <li key={idx} className="text-blue-200 text-sm flex items-center">
+                            <Shield className="w-3 h-3 text-yellow-400 mr-2 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <Link to="/quote" className="block">
+                      <button className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
+                        Get Quote
+                      </button>
+                    </Link>
                   </div>
-
-                  <Link to="/quote" className="block">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
-                      Get Quote
-                    </button>
-                  </Link>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Solar EPC Content */}
       {activeCategory === 'epc' && (
-        <section className="py-16 bg-gradient-to-b from-slate-800 to-slate-900">
+        <section className="pt-8 pb-16 bg-gradient-to-b from-slate-800 to-slate-900">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               {/* EPC Images Grid */}
