@@ -18,6 +18,13 @@ import dcdbBox from '../assets/dcdb_box.png';
 import earthingSolar from '../assets/earthing_solar.jpg';
 import solarStringMonitoring from '../assets/solar-sting-monitring.webp';
 
+// EPC images
+import epc2 from '../assets/epc2.jpeg';
+import epc3 from '../assets/epc3.jpeg';
+import epc4 from '../assets/epc4.jpeg';
+import epc5 from '../assets/epc5.jpeg';
+import epc6 from '../assets/epc6.jpeg';
+
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('electrical');
 
@@ -87,9 +94,12 @@ const Products = () => {
     }
   ];
 
+  const epcProducts = [];
+
   const categories = [
     { id: 'electrical', name: 'Electrical Panels', icon: <Zap className="w-6 h-6" />, products: electricalProducts },
-    { id: 'solar', name: 'Solar Products', icon: <Sun className="w-6 h-6" />, products: solarProducts }
+    { id: 'solar', name: 'Solar Products', icon: <Sun className="w-6 h-6" />, products: solarProducts },
+    { id: 'epc', name: 'Solar EPC', icon: <Settings className="w-6 h-6" />, products: epcProducts }
   ];
 
   const activeProducts = categories.find(cat => cat.id === activeCategory)?.products || [];
@@ -159,8 +169,10 @@ const Products = () => {
                     <div className="bg-gradient-to-r from-yellow-500 to-orange-600 p-2 rounded-lg">
                       {activeCategory === 'electrical' ? (
                         <Zap className="w-5 h-5 text-white" />
-                      ) : (
+                      ) : activeCategory === 'solar' ? (
                         <Sun className="w-5 h-5 text-white" />
+                      ) : (
+                        <Settings className="w-5 h-5 text-white" />
                       )}
                     </div>
                   </div>
@@ -197,6 +209,180 @@ const Products = () => {
           </div>
         </div>
       </section>
+
+      {/* Solar EPC Content */}
+      {activeCategory === 'epc' && (
+        <section className="py-16 bg-gradient-to-b from-slate-800 to-slate-900">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              {/* EPC Images Grid */}
+              <div className="grid md:grid-cols-5 gap-6 mb-6">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={epc2}
+                    alt="Solar EPC Service 2"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={epc3}
+                    alt="Solar EPC Service 3"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={epc4}
+                    alt="Solar EPC Service 4"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={epc5}
+                    alt="Solar EPC Service 5"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={epc6}
+                    alt="Solar EPC Service 6"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* EPC Content */}
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    Solar Power Plant EPC and I&C Services
+                  </span>
+                </h2>
+
+                <h3 className="text-2xl font-bold text-yellow-400 mb-4">
+                  Empowering the Future with Solar Energy
+                </h3>
+                <p className="text-blue-200 leading-relaxed mb-8">
+                  We deliver end-to-end <strong>Engineering, Procurement & Construction (EPC)</strong> and <strong>Installation & Commissioning (I&C)</strong> solutions for solar power plants. From concept to grid-connected operation, we design, build, and commission reliable, high-performance solar power plants that maximize energy yield and ROI.
+                </p>
+
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  What is EPC + I&C in Solar Power Plants?
+                </h3>
+                <p className="text-blue-200 leading-relaxed mb-4">
+                  <strong>EPC (Engineering, Procurement & Construction)</strong> is a single-point turnkey solution where we handle the complete lifecycle of your solar power project:
+                </p>
+                <ul className="text-blue-200 leading-relaxed mb-6 ml-6 list-disc">
+                  <li><strong>Engineering</strong>: Site assessment, system design, shadow analysis, load calculation, and detailed engineering drawings.</li>
+                  <li><strong>Procurement</strong>: Sourcing high-quality solar modules, inverters, mounting structures, cables, transformers, and balance-of-system (BoS) components from Tier-1 manufacturers.</li>
+                  <li><strong>Construction</strong>: Civil works, module mounting, electrical installation, and grid interconnection.</li>
+                </ul>
+
+                <p className="text-blue-200 leading-relaxed mb-8">
+                  <strong>I&C (Installation & Commissioning)</strong> ensures flawless execution and immediate power generation:
+                </p>
+                <ul className="text-blue-200 leading-relaxed mb-8 ml-6 list-disc">
+                  <li>Professional installation as per IEC standards and MNRE guidelines.</li>
+                  <li>Testing, synchronization, and grid commissioning.</li>
+                  <li>Performance guarantee and 5–25 years of O&M support.</li>
+                </ul>
+
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Types of Solar Power Plants We Execute
+                </h3>
+                <p className="text-blue-200 leading-relaxed mb-8">
+                  We specialize in all major types of solar power plants. Here is the detailed literature you can directly use on your website:
+                </p>
+
+                <div className="overflow-x-auto mb-8">
+                  <table className="w-full bg-white/10 rounded-lg overflow-hidden">
+                    <thead className="bg-gradient-to-r from-yellow-500 to-orange-600">
+                      <tr>
+                        <th className="px-4 py-3 text-left text-white font-bold">Type of Solar Power Plant</th>
+                        <th className="px-4 py-3 text-left text-white font-bold">Description</th>
+                        <th className="px-4 py-3 text-left text-white font-bold">Typical Capacity</th>
+                        <th className="px-4 py-3 text-left text-white font-bold">Best Suited For</th>
+                        <th className="px-4 py-3 text-left text-white font-bold">Key Features</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-white/10">
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Utility-Scale / Ground-Mounted Solar Power Plant</td>
+                        <td className="px-4 py-3 text-blue-200">Large-scale solar farms installed on open land using fixed-tilt or tracker structures.</td>
+                        <td className="px-4 py-3 text-blue-200">1 MW to 500 MW+</td>
+                        <td className="px-4 py-3 text-blue-200">IPPs, DISCOMs, Solar Parks, State utilities</td>
+                        <td className="px-4 py-3 text-blue-200">Highest energy yield, economies of scale, tracker option for +20–25% extra generation</td>
+                      </tr>
+                      <tr className="border-b border-white/10">
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Rooftop Solar Power Plant (On-Grid)</td>
+                        <td className="px-4 py-3 text-blue-200">Solar panels installed on industrial, commercial or institutional rooftops and synchronized with the grid.</td>
+                        <td className="px-4 py-3 text-blue-200">10 kW to 10 MW</td>
+                        <td className="px-4 py-3 text-blue-200">Factories, malls, hospitals, schools, IT parks</td>
+                        <td className="px-4 py-3 text-blue-200">Net-metering, zero wheeling charges in many states, fast ROI (3–5 years)</td>
+                      </tr>
+                      <tr className="border-b border-white/10">
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Off-Grid Solar Power Plant</td>
+                        <td className="px-4 py-3 text-blue-200">Standalone system with battery energy storage; no grid connection required.</td>
+                        <td className="px-4 py-3 text-blue-200">1 kW to 5 MW</td>
+                        <td className="px-4 py-3 text-blue-200">Remote villages, telecom towers, mining sites, islands</td>
+                        <td className="px-4 py-3 text-blue-200">24×7 power availability, diesel replacement</td>
+                      </tr>
+                      <tr className="border-b border-white/10">
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Hybrid Solar Power Plant</td>
+                        <td className="px-4 py-3 text-blue-200">Combines solar PV + grid + battery + optional diesel generator.</td>
+                        <td className="px-4 py-3 text-blue-200">50 kW to 50 MW</td>
+                        <td className="px-4 py-3 text-blue-200">Industries with high daytime + night load</td>
+                        <td className="px-4 py-3 text-blue-200">Maximum uptime, peak shaving, lowest cost of energy</td>
+                      </tr>
+                      <tr className="border-b border-white/10">
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Floating Solar Power Plant</td>
+                        <td className="px-4 py-3 text-blue-200">Solar modules mounted on floating platforms over water bodies (lakes, reservoirs, ponds).</td>
+                        <td className="px-4 py-3 text-blue-200">1 MW to 100 MW+</td>
+                        <td className="px-4 py-3 text-blue-200">Water-scarce areas, existing water bodies</td>
+                        <td className="px-4 py-3 text-blue-200">Saves land, reduces evaporation, +10–15% higher efficiency due to water cooling</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 text-blue-200 font-semibold">Concentrated Solar Power (CSP) Plant</td>
+                        <td className="px-4 py-3 text-blue-200">Uses mirrors to concentrate sunlight and generate high-temperature steam for turbines (less common in India).</td>
+                        <td className="px-4 py-3 text-blue-200">10 MW to 500 MW</td>
+                        <td className="px-4 py-3 text-blue-200">Large utility projects in high DNI regions</td>
+                        <td className="px-4 py-3 text-blue-200">Dispatchable power with thermal storage (night generation possible)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Why Choose Our Solar EPC & I&C Services?
+                </h3>
+                <ul className="text-blue-200 leading-relaxed mb-8 ml-6 list-disc">
+                  <li><strong>Turnkey Delivery</strong>: One window solution from feasibility study to 25-year performance guarantee.</li>
+                  <li><strong>Latest Technology</strong>: Mono PERC, TOPCon, HJT, Bifacial modules + Central & String inverters + AI-based SCADA & monitoring.</li>
+                  <li><strong>Compliance</strong>: MNRE, SECI, CEA, DISCOM, IEC 61215, IEC 61730, IEC 62116 standards.</li>
+                  <li><strong>Bankable Documents</strong>: Detailed Project Report (DPR), PVSyst simulation, energy yield assessment, and financial models for easy project financing.</li>
+                  <li><strong>Quality & Safety</strong>: Zero-incident track record, ISO 9001, 14001 & 45001 certified processes.</li>
+                  <li><strong>Pan-India Presence</strong>: Execution experience across 15+ states with local teams for faster project completion.</li>
+                </ul>
+
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Benefits of Investing in Solar Power Plants (2026 Perspective)
+                </h3>
+                <ul className="text-blue-200 leading-relaxed mb-8 ml-6 list-disc">
+                  <li>Tariff as low as ₹2.0–2.5/kWh (utility scale)</li>
+                  <li>25–30% capital subsidy available under various state & central schemes</li>
+                  <li>Accelerated depreciation + tax benefits</li>
+                  <li>Carbon credit & ESG compliance</li>
+                  <li>Payback period: 3–6 years depending on plant type</li>
+                  <li>25-year performance warranty on modules</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Additional Services */}
       <section className="py-20 bg-gradient-to-b from-slate-800 to-slate-900">
