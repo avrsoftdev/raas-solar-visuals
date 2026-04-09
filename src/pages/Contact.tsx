@@ -390,7 +390,6 @@ const Contact = () => {
                     <div>
                       <h4 className="text-white font-semibold mb-1">Email</h4>
                       <p className="text-blue-200">{FORM_RECIPIENT_EMAIL}</p>
-                      <p className="text-blue-200">raasengineer@gmail.com</p>
                     </div>
                   </div>
 

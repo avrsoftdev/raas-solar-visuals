@@ -1,4 +1,4 @@
-const FORM_RECIPIENT_EMAIL = 'raasengineer@gmail.com';
+const FORM_RECIPIENT_EMAIL = 'info@raasengineers.com';
 const FORM_SUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${FORM_RECIPIENT_EMAIL}`;
 
 type ContactFormValues = Record<string, string>;
@@ -16,18 +16,20 @@ export async function submitLeadForm(formType: string, values: ContactFormValues
     return accumulator;
   }, {});
 
+  const formData = new URLSearchParams({
+    ...payload,
+    _subject: `${formType} - RAAS Engineers Website`,
+    _template: 'table',
+    _captcha: 'false',
+  });
+
   const response = await fetch(FORM_SUBMIT_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     },
-    body: JSON.stringify({
-      ...payload,
-      _subject: `${formType} - RAAS Engineers Website`,
-      _template: 'table',
-      _captcha: 'false',
-    }),
+    body: formData.toString(),
   });
 
   const result = await response.json().catch(() => null);
