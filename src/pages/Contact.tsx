@@ -5,11 +5,13 @@ import { Mail, Phone, MapPin, Clock, Send, Calculator, Home, Building, Factory }
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useToast } from '../hooks/use-toast';
+import { FORM_RECIPIENT_EMAIL, submitLeadForm } from '../lib/formSubmit';
 
 const Contact = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const isQuoteRequest = searchParams.get('type') === 'quote';
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -33,7 +35,7 @@ const Contact = () => {
     }
   }, [isQuoteRequest]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -56,24 +58,45 @@ const Contact = () => {
       return;
     }
 
-    // Simulate form submission
-    toast({
-      title: isQuoteRequest ? "Quote request sent successfully!" : "Message sent successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
+    try {
+      setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: isQuoteRequest ? 'Quote Request - Solar System Installation' : '',
-      message: '',
-      projectType: '',
-      systemSize: '',
-      budget: '',
-      timeline: '',
-      location: ''
-    });
+      await submitLeadForm(isQuoteRequest ? 'Quote Request' : 'Contact Form', {
+        ...formData,
+        formType: isQuoteRequest ? 'Quote Request' : 'Contact Form',
+        recipientEmail: FORM_RECIPIENT_EMAIL,
+      });
+
+      toast({
+        title: isQuoteRequest ? "Quote request sent successfully!" : "Message sent successfully!",
+        description: `Your inquiry has been forwarded to ${FORM_RECIPIENT_EMAIL}. We'll get back to you within 24 hours.`,
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        subject: isQuoteRequest ? 'Quote Request - Solar System Installation' : '',
+        message: '',
+        projectType: '',
+        systemSize: '',
+        budget: '',
+        timeline: '',
+        location: ''
+      });
+    } catch (error) {
+      const description =
+        error instanceof Error
+          ? error.message
+          : 'Please try again in a moment or contact us directly.';
+
+      toast({
+        title: 'Message could not be sent',
+        description,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -300,10 +323,11 @@ const Contact = () => {
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:from-yellow-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <Send className="w-5 h-5" />
-                  <span>{isQuoteRequest ? 'Request Quote' : 'Send Message'}</span>
+                  <span>{isSubmitting ? 'Sending...' : isQuoteRequest ? 'Request Quote' : 'Send Message'}</span>
                 </button>
               </form>
             </div>
@@ -365,8 +389,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-white font-semibold mb-1">Email</h4>
+                      <p className="text-blue-200">{FORM_RECIPIENT_EMAIL}</p>
                       <p className="text-blue-200">raasengineer@gmail.com</p>
-                      <p className="text-blue-200">info@raasengineers.com</p>
                     </div>
                   </div>
 

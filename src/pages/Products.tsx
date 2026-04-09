@@ -19,7 +19,6 @@ import earthingSolar from '../assets/earthing_solar.jpg';
 import solarStringMonitoring from '../assets/solar-sting-monitring.webp';
 
 // EPC images
-import epc2 from '../assets/epc2.jpeg';
 import epc3 from '../assets/epc3.jpeg';
 import epc4 from '../assets/epc4.jpeg';
 import epc5 from '../assets/epc5.jpeg';
@@ -218,14 +217,7 @@ const Products = () => {
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               {/* EPC Images Grid */}
-              <div className="grid md:grid-cols-5 gap-6 mb-6">
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
-                  <img
-                    src={epc2}
-                    alt="Solar EPC Service 2"
-                    className="w-full h-48 object-cover"
-                  />
-                </div>
+              <div className="grid md:grid-cols-4 gap-6 mb-6">
                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
                   <img
                     src={epc3}
@@ -380,6 +372,12 @@ const Products = () => {
                   <li>Payback period: 3–6 years depending on plant type</li>
                   <li>25-year performance warranty on modules</li>
                 </ul>
+
+                <Link to="/quote" className="inline-block">
+                  <button className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
+                    Get Quote
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

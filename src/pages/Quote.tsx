@@ -3,9 +3,11 @@ import { Calculator, Mail, Phone, MapPin, Clock, Send, Home, Building, Factory, 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useToast } from '../hooks/use-toast';
+import { FORM_RECIPIENT_EMAIL, submitLeadForm } from '../lib/formSubmit';
 
 const Quote = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,7 +22,7 @@ const Quote = () => {
     hearAboutUs: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validation
@@ -33,26 +35,46 @@ const Quote = () => {
       return;
     }
 
-    // Simulate form submission
-    toast({
-      title: "Quote request submitted successfully!",
-      description: "Our solar experts will contact you within 24 hours with a customized quote.",
-    });
+    try {
+      setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      projectType: '',
-      systemSize: '',
-      budget: '',
-      timeline: '',
-      location: '',
-      requirements: '',
-      hearAboutUs: ''
-    });
+      await submitLeadForm('Quote Request', {
+        ...formData,
+        recipientEmail: FORM_RECIPIENT_EMAIL,
+      });
+
+      toast({
+        title: "Quote request submitted successfully!",
+        description: `Your request has been forwarded to ${FORM_RECIPIENT_EMAIL}. Our solar experts will contact you within 24 hours with a customized quote.`,
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        projectType: '',
+        systemSize: '',
+        budget: '',
+        timeline: '',
+        location: '',
+        requirements: '',
+        hearAboutUs: ''
+      });
+    } catch (error) {
+      const description =
+        error instanceof Error
+          ? error.message
+          : 'Please try again in a moment or contact us directly.';
+
+      toast({
+        title: 'Quote request could not be sent',
+        description,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -325,10 +347,11 @@ const Quote = () => {
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:from-yellow-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <Send className="w-5 h-5" />
-                  <span>Submit Quote Request</span>
+                  <span>{isSubmitting ? 'Sending...' : 'Submit Quote Request'}</span>
                 </button>
               </form>
             </div>
