@@ -24,6 +24,14 @@ import epc4 from '../assets/epc4.jpeg';
 import epc5 from '../assets/epc5.jpeg';
 import epc6 from '../assets/epc6.jpeg';
 
+// Automation images
+import at1 from '../assets/at1.jpg';
+import at2 from '../assets/at2.png';
+import at3 from '../assets/at3.png';
+import at4 from '../assets/at4.jpg';
+import at5 from '../assets/at5.png';
+import at6 from '../assets/at6.jpg';
+
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('electrical');
 
@@ -95,10 +103,13 @@ const Products = () => {
 
   const epcProducts = [];
 
+  const automationProducts = [];
+
   const categories = [
     { id: 'electrical', name: 'Electrical Panels', icon: <Zap className="w-6 h-6" />, products: electricalProducts },
     { id: 'solar', name: 'Solar Products', icon: <Sun className="w-6 h-6" />, products: solarProducts },
-    { id: 'epc', name: 'Solar EPC', icon: <Settings className="w-6 h-6" />, products: epcProducts }
+    { id: 'epc', name: 'Solar EPC', icon: <Settings className="w-6 h-6" />, products: epcProducts },
+    { id: 'automation', name: 'Automation', icon: <Cpu className="w-6 h-6" />, products: automationProducts }
   ];
 
   const activeProducts = categories.find(cat => cat.id === activeCategory)?.products || [];
@@ -206,6 +217,98 @@ const Products = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Automation Content */}
+      {activeCategory === 'automation' && (
+        <section className="pt-8 pb-16 bg-gradient-to-b from-slate-800 to-slate-900">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-bold text-white mb-6">
+                <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                  Zero Export Device and DG-PV Synchronization
+                </span>
+              </h2>
+
+              {/* Automation Images Grid */}
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at1}
+                    alt="Automation 1"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at2}
+                    alt="Automation 2"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at3}
+                    alt="Automation 3"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at4}
+                    alt="Automation 4"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at5}
+                    alt="Automation 5"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={at6}
+                    alt="Automation 6"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Automation Content */}
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
+                <p className="text-blue-200 leading-relaxed mb-6">
+                  RAAS has a solution where we have a field proven, time tested product, which manages and prevents.
+                </p>
+
+                <ul className="text-blue-200 leading-relaxed mb-6 ml-6 list-disc">
+                  <li>Back injection of solar power to diesel generator,</li>
+                  <li>Maintains diesel generators at minimum 30%,</li>
+                  <li>Grid net metering is not possible,</li>
+                  <li>Export not allowed by the clients or state electricity boards,</li>
+                  <li>Grid export is allowed but only certain time of the day or limited in KWh/MWh</li>
+                </ul>
+
+                <h3 className="text-2xl font-bold text-yellow-400 mb-4">
+                  Problem Faced by Solar EPC's
+                </h3>
+
+                <ul className="text-blue-200 leading-relaxed mb-6 ml-6 list-disc">
+                  <li>Can Solar be Installed Grid where net metering is not possible?</li>
+                  <li>Can Solar be Installed Grid export is not needed by end client?</li>
+                  <li>Can Solar be Installed Grid export is disallowed by Discoms?</li>
+                  <li>Can Solar be Installed Grid export is allowed, but only during certain Time of Day?</li>
+                  <li>Can Solar be Installed Grid export is allowed but limited to fixed MWHr per day?</li>
+                </ul>
+
+                <p className="text-blue-200 leading-relaxed">
+                  The conditions for Solar DG Sync arise when load drops to less than Power Produced by Solar Power Plant [e.g. on Saturday, Sundays and other holidays]. This could also happen during a normal day when load is less than power produced by a solar power plant [ like during lunch time or during shift change or immediately after a power source change over]. Or a sudden load trip.
+                </p>
+              </div>
             </div>
           </div>
         </section>
